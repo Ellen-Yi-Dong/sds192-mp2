@@ -4,7 +4,7 @@ author: "Your Name Here"
 date: "2019-03-24"
 output: 
   html_document:
-    code_folding: show
+    code_folding: hide
 ---
 
 
@@ -19,6 +19,11 @@ load("house_elections.rda")
 load("candidates.rda")
 load("committees.rda")
 load("contributions.rda")
+```
+```{r}
+house_elections %>%
+  filter(state == "CA") %>%
+  group_by(primary_votes)
 ```
 
 > Word count: `r wordcountaddin::word_count()`
