@@ -21,4 +21,9 @@ load("committees.rda")
 load("contributions.rda")
 ```
 
-> Word count: `r wordcountaddin::word_count()`
+```{r}
+house_elections %>%
+  filter(state == "CA") %>%
+  group_by(primary_votes)
+```
+
