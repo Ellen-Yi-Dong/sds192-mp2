@@ -1,6 +1,6 @@
 ---
 title: "Mini-Project 2"
-author: "Your Name Here"
+author: "Ellen Dong and Christina Hung"
 date: "2019-03-24"
 output: 
   html_document:
@@ -20,10 +20,15 @@ load("candidates.rda")
 load("committees.rda")
 load("contributions.rda")
 ```
+
 ```{r}
-house_elections %>%
+ca_house_elections <- house_elections %>%
   filter(state == "CA") %>%
   group_by(primary_votes)
+
+ca_contributions <- contributions %>%
+  filter(state == "CA") %>%
+  group_by(transaction_amt)
 ```
 
 > Word count: `r wordcountaddin::word_count()`
