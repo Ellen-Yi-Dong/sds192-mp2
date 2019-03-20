@@ -89,6 +89,6 @@ contributions_helections <- contributions_helections %>%
 ```{r eval = FALSE}
 ## Make a Plot
 
-ggplot(contributions_helections, aes(x = district.x, y = mean_size, color = district.x)) + 
+ggplot(contributions_helections, aes(x = district.x, y = mean_votes, color = district.x)) + 
   geom_point()
 ```
