@@ -58,6 +58,7 @@ contributions %>%
 ```
 
 
+
 our code
 
 ```{r}
@@ -75,11 +76,13 @@ ca_contributions <- contributions %>%
 contributions_helections <- ca_house_elections %>% 
   inner_join(ca_house_elections, ca_contributions, by = "state")
 ```
+
 ```{r}
 ## Selecting Columns from the Joined Table
 contributions_helections %>%
   select(candidate_name.x, incumbent.x, primary_votes.x) %>%
-  filter(incumbent.x == "TRUE")
+  filter(incumbent.x == "TRUE") %>%
+  summarize(mean_size = mean(primary_votes.x, na.rm = TRUE))
 ```
 ```{r eval = FALSE}
 ## Make a Plot
