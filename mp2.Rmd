@@ -22,6 +22,7 @@ load("candidates.rda")
 load("committees.rda")
 load("contributions.rda")
 ```
+
 ## Some basic EDA
 
 
@@ -90,6 +91,7 @@ g_contributions_helections <- contributions_helections %>%
 
 ```{r eval = FALSE}
 ## Make a Plot
+<<<<<<< HEAD
 ggplot(contributions_helections, aes(x = district.x, y = mean_votes, color = district.x)) + 
   geom_point() 
 ```
@@ -105,4 +107,9 @@ ggplot(g_contributions_helections, aes(x = district.x, y = mean_votes)) +
 
 
 
+=======
+>>>>>>> 57f1613851e221dfa7640abda2affdeaad23de71
 
+ggplot(contributions_helections, aes(x = district.x, y = mean_votes, color = district.x)) + 
+  geom_point()
+```
