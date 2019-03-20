@@ -72,9 +72,8 @@ ca_contributions <- contributions %>%
   filter(state == "CA") %>%
   group_by(transaction_amt)
 ```
-<<<<<<< HEAD
->>>>>>> cc4cb51db242d1c795fa3ff178907125b186f2a6
-=======
+
+
 ```{r} 
 ## Joining the Contributions and House Elections Tables
 contributions_helections <- ca_house_elections %>% 
@@ -91,64 +90,5 @@ contributions_helections %>%
 ggplot(contributions_helections, aes(x = transaction_amt, y = primary_votes, color = zip_code)) + 
   geom_point()
 ```
->>>>>>> 954e459f997a574a0977db5c91342c360c13c7c3
 
-- How many candidates running for what offices?
 
-```{r}
-candidates %>%
-  group_by(cand_election_yr, cand_office, cand_office_state) %>%
-  summarize(num_candidates = n()) %>%
-  print(n = Inf)
-```
-
-Note that this appears to be cumulative!
-
-- How many committees [by type](https://classic.fec.gov/finance/disclosure/metadata/CommitteeTypeCodes.shtml)?
-
-```{r}
-committees %>%
-  group_by(cmte_type) %>%
-  summarize(num_committees = n(), 
-            cand_ids = sum(cand_id > "")) %>%
-  arrange(desc(num_committees))
-```
-
-- What types of contributions are there and where do they go?
-
-```{r}
-contributions %>%
-  group_by(entity_type) %>%
-  summarize(num_contributions = n(), 
-            total_amount = sum(transaction_amt), 
-            other_ids = sum(other_id > ""),
-            cand_ids = sum(cand_id > "")) %>%
-  arrange(desc(num_contributions))
-```
-
-```{r}
-ca_house_elections <- house_elections %>%
-  filter(state == "CA") %>%
-  group_by(primary_votes) %>%
-  summarize()
-ca_contributions <- contributions %>%
-  filter(state == "CA") %>%
-  group_by(transaction_amt)
-```
-
-```{r}
-two_tables <- ca_house_elections %>% full_join(ca_contributions)
-```
-
-```{r}
-two_tables %>%
-  select(candidate_name, transaction_amt, primary_votes) %>%
-  group_by(candidate_name) %>%
-  filter(candidate_name == "Shah,Jay")
-```
-
-```{r}
-ggplot(two_tables, aes(x = transaction_amt, y = primary_votes, color = zip_code)) + 
-  geom_point()
-
-```
