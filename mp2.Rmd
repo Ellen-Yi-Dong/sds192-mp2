@@ -80,15 +80,28 @@ contributions_helections <- ca_house_elections %>%
 
 ```{r}
 ## Selecting Columns from the Joined Table
-contributions_helections <- contributions_helections %>%
+contributions_helections <-contributions_helections %>%
   select(candidate_name.x, incumbent.x, primary_votes.x) %>%
-  filter(incumbent.x == "TRUE") %>%
-  summarize(mean_votes = mean(primary_votes.x, na.rm = TRUE))
+  #filter(incumbent.x == "TRUE") %>%
+  mutate(mean_votes = mean(primary_votes.x, na.rm = TRUE))
+
+View(contributions_helections)
 ```
 
 ```{r eval = FALSE}
 ## Make a Plot
-
-ggplot(contributions_helections, aes(x = district.x, y = mean_size, color = district.x)) + 
-  geom_point()
+ggplot(contributions_helections, aes(x = district.x, y = mean_votes, color = district.x)) + 
+  geom_point() 
 ```
+
+
+```{r}
+ggplot(contributions_helections, aes(x = district.x, y = mean_votes)) + 
+  geom_point(aes(color = incumbent.x))
+```
+
+
+
+
+
+
