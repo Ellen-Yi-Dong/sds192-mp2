@@ -22,8 +22,7 @@ load("committees.rda")
 load("contributions.rda")
 ```
 ## Some basic EDA
-<<<<<<< HEAD
-=======
+
 
 - How many candidates running for what offices?
 
@@ -79,11 +78,13 @@ ca_contributions <- contributions %>%
 contributions_helections <- ca_house_elections %>% 
   inner_join(ca_house_elections, ca_contributions, by = "state")
 ```
+
 ```{r}
 ## Selecting Columns from the Joined Table
 contributions_helections %>%
-  select(candidate_name, transaction_amt, primary_votes) %>%
-  filter(candidate_name == "Brooks, John")
+  select(candidate_name.x, incumbent.x, primary_votes.x) %>%
+  filter(incumbent.x == TRUE) %>%
+  summarize(mean_size = mean(primary_votes.x, na.rm = TRUE))
 ```
 ```{r eval = FALSE}
 ## Make a Plot
