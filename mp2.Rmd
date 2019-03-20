@@ -16,6 +16,7 @@ This project is so interesting and relevant to my life!
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
+library(RColorBrewer)
 load("house_elections.rda")
 load("candidates.rda")
 load("committees.rda")
@@ -76,16 +77,15 @@ ca_contributions <- contributions %>%
 ## Joining the Contributions and House Elections Tables
 contributions_helections <- ca_house_elections %>% 
   inner_join(ca_house_elections, ca_contributions, by = "state")
+View(contributions_helections)
 ```
 
 ```{r}
 ## Selecting Columns from the Joined Table
-contributions_helections <-contributions_helections %>%
-  select(candidate_name.x, incumbent.x, primary_votes.x) %>%
-  #filter(incumbent.x == "TRUE") %>%
+g_contributions_helections <- contributions_helections %>%
+  select(candidate_name.x, incumbent.x, incumbent.y, primary_votes.x) %>%
   mutate(mean_votes = mean(primary_votes.x, na.rm = TRUE))
 
-View(contributions_helections)
 ```
 
 ```{r eval = FALSE}
@@ -96,8 +96,9 @@ ggplot(contributions_helections, aes(x = district.x, y = mean_votes, color = dis
 
 
 ```{r}
-ggplot(contributions_helections, aes(x = district.x, y = mean_votes)) + 
-  geom_point(aes(color = incumbent.x))
+ggplot(g_contributions_helections, aes(x = district.x, y = mean_votes)) + 
+  geom_point(aes(color = incumbent.x)) + 
+  scale_fill_manual(values=c("FALSE"="red","TRUE"="blue"))
 ```
 
 
