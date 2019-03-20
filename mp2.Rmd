@@ -78,8 +78,8 @@ contributions_helections <- ca_house_elections %>%
 ```{r}
 ## Selecting Columns from the Joined Table
 contributions_helections %>%
-  select(candidate_name, transaction_amt, primary_votes) %>%
-  filter(candidate_name == "Brooks, John")
+  select(candidate_name.x, incumbent.x, primary_votes.x) %>%
+  filter(incumbent.x == "TRUE")
 ```
 ```{r eval = FALSE}
 ## Make a Plot
