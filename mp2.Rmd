@@ -70,21 +70,24 @@ ca_contributions <- contributions %>%
   filter(state == "CA") %>%
   group_by(transaction_amt)
 ```
+
 ```{r} 
 ## Joining the Contributions and House Elections Tables
 contributions_helections <- ca_house_elections %>% 
   inner_join(ca_house_elections, ca_contributions, by = "state")
 ```
 
+
 ```{r}
 ## Selecting Columns from the Joined Table
-contributions_helections %>%
+contributions_helections <- contributions_helections %>%
   select(candidate_name.x, incumbent.x, primary_votes.x) %>%
   filter(incumbent.x == TRUE) %>%
   summarize(mean_size = mean(primary_votes.x, na.rm = TRUE))
 ```
+
 ```{r eval = FALSE}
 ## Make a Plot
-ggplot(contributions_helections, aes(x = transaction_amt, y = primary_votes, color = zip_code)) + 
+ggplot(contributions_helections, aes(x = district.x, y = mean_size, color = district.x)) + 
   geom_point()
 ```
