@@ -83,7 +83,6 @@ contributions_helections <- ca_house_elections %>%
 ## Selecting Columns from the Joined Table
 contributions_helections <-contributions_helections %>%
   select(candidate_name.x, incumbent.x, primary_votes.x) %>%
-  #filter(incumbent.x == "TRUE") %>%
   mutate(mean_votes = mean(primary_votes.x, na.rm = TRUE))
 
 View(contributions_helections)
