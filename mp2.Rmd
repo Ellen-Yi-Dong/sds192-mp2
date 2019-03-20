@@ -82,10 +82,10 @@ contributions_helections <- ca_house_elections %>%
 contributions_helections %>%
   select(candidate_name.x, incumbent.x, primary_votes.x) %>%
   filter(incumbent.x == "TRUE") %>%
-  summarize(mean_size = mean(primary_votes.x, na.rm = TRUE))
+  summarize(mean_votes = mean(primary_votes.x, na.rm = TRUE))
 ```
 ```{r eval = FALSE}
 ## Make a Plot
-ggplot(contributions_helections, aes(x = transaction_amt, y = primary_votes, color = zip_code)) + 
+ggplot(contributions_helections, aes(x = district.x, y = mean_votes, color = zip_code)) + 
   geom_point()
 ```
