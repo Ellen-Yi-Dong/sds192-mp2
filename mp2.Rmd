@@ -73,7 +73,7 @@ two_tables <- ca_house_elections %>% full_join(ca_contributions)
 two_tables %>%
   select(candidate_name, transaction_amt, primary_votes) %>%
   group_by(candidate_name) %>%
-  filter(candidate_name == "Shah, Jay")
+  filter(candidate_name == "Shah,Jay")
 ```
 
 ```{r}
