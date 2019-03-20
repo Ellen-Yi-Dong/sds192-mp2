@@ -58,7 +58,6 @@ contributions %>%
 ```
 
 
-
 our code
 
 ```{r}
@@ -71,7 +70,6 @@ ca_contributions <- contributions %>%
   filter(state == "CA") %>%
   group_by(transaction_amt)
 ```
-
 ```{r} 
 ## Joining the Contributions and House Elections Tables
 contributions_helections <- ca_house_elections %>% 
