@@ -78,38 +78,38 @@ ca_contributions <- contributions %>%
 ## Joining the Contributions and House Elections Tables
 contributions_helections <- ca_house_elections %>% 
   inner_join(ca_house_elections, ca_contributions, by = "state")
-View(contributions_helections)
+
 ```
 
 ```{r}
 ## Selecting Columns from the Joined Table
 g_contributions_helections <- contributions_helections %>%
-  select(candidate_name.x, incumbent.x, incumbent.y, primary_votes.x) %>%
+  select(candidate_name.x, incumbent.x, primary_votes.x) %>%
   mutate(mean_votes = mean(primary_votes.x, na.rm = TRUE))
 
 ```
 
-```{r eval = FALSE}
-## Make a Plot
-<<<<<<< HEAD
-ggplot(contributions_helections, aes(x = district.x, y = mean_votes, color = district.x)) + 
-  geom_point() 
+```{r}
+g_contributions_helections %>%
+  arrange(desc(district.x))
 ```
 
 
 ```{r}
+#Trying to separate incumbent by TRUE and FALSE
 ggplot(g_contributions_helections, aes(x = district.x, y = mean_votes)) + 
   geom_point(aes(color = incumbent.x)) + 
-  scale_fill_manual(values=c("FALSE"="red","TRUE"="blue"))
+  scale_fill_manual(values=c("FALSE"="black","TRUE"="red")) + 
+  labs(color = "Incumbent Status", 
+         x = "District", 
+         y = "Mean Number of Votes", 
+         title = "The Mean Number of Votes for Each Politician in a Certain District in CA", 
+         subtitle = "In respect to Incumbency"
+         )
 ```
 
 
 
 
 
-=======
->>>>>>> 57f1613851e221dfa7640abda2affdeaad23de71
 
-ggplot(contributions_helections, aes(x = district.x, y = mean_votes, color = district.x)) + 
-  geom_point()
-```
