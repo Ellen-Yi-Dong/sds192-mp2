@@ -69,11 +69,11 @@ our code
 ## Filtering and Grouping the Contributions and House Elections Tables
 ca_house_elections <- house_elections %>%
   filter(state == "CA") %>%
-  group_by(district)
+  select(state, incumbent, primary_votes)
 
 ca_contributions <- contributions %>%
-  filter(state == "CA") %>%
-  group_by(transaction_amt)
+  filter(state == "CA" & transaction_amt > 0) %>%
+  select(state, transaction_amt)
 ```
 
 ```{r} 
@@ -102,8 +102,8 @@ ggplot(g_contributions_helections, aes(x = district.x, y = mean_votes)) +
   scale_fill_manual(values=c("FALSE" = "black", "TRUE" = "red")) + 
   labs(color = "Incumbent Status", 
          x = "District", 
-         y = "Mean Number of Votes", 
-         title = "The Mean Number of Votes for Each Politician in a Certain District in CA", 
+         y = "Mean Number of Primary Votes", 
+         title = "The Mean Number of Primary Votes for Each Politician in a Certain District in CA", 
          subtitle = "With Respect to Incumbency"
          )
 ```
