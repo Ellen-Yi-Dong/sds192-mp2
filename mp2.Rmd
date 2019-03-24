@@ -48,6 +48,7 @@ ca_contributions <- contributions %>%
 contributions_helections <- ca_house_elections %>% 
   full_join(ca_contributions, by = "fec_id")
 
+#Filtering out the NA in the joined table 
 contributions_helections %>%
   filter(!is.na(state.y)) %>%
   filter(!is.na(transaction_amt)) %>%
