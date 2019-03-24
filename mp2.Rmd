@@ -85,6 +85,7 @@ contributions_helections <- ca_house_elections %>%
 ## Selecting Columns from the Joined Table
 g_contributions_helections <- contributions_helections %>%
   select(candidate_name.x, incumbent.x, primary_votes.x) %>%
+  filter(!is.na(candidate_name.x)) %>%
   mutate(mean_votes = mean(primary_votes.x, na.rm = TRUE))
 
 ```
