@@ -74,6 +74,22 @@ ggplot(contributions_helections, aes(x = primary_votes, y = transaction_amt)) +
          )
 ```
 
+## Analysis
+
+From this data, we can learn about the relationship between the number of primary votes a candidate receives and the amount of money donated to help them (transaction amount) in California, as well as whether or not they were an incumbent. The graph above demonstrates that in California, incumbents (labeled in green) generally have a higher number of primary votes than non-incumbents (labeled in red).
+
+The number of primary votes refers to the number of votes that a candidate receives in a primary election, which is used to weed out candidates or to determine the nominees for parties before a general election.  In essence, it shows a candidate’s popularity.  Partisan primaries in particular select candidates to be a party’s nominee in the general election that follows.  
+
+There are three types of primaries, which are differentiated by who is allowed to vote in them: open primaries, closed primaries, and semi-closed primaries.  Open primaries are where voters do not have to be part of the party the primary is for to vote in it, and they are allowed declare affiliation on the day of voting, even if they used to be a different party.  Closed primaries are where the voters have to be part of the party the primary is for, and they also have to have registered to vote in the primary in advance.  Lastly, semi-closed primaries (also called hybrid primaries) are where voters who aren’t part of a party can choose which partisan primary they want to vote in.
+
+Incumbency refers to the period during which someone has a particular official position, and incumbents are usually more likely to retain their positions than new candidates.  For example, over the past 50 years, at least 80% of incumbents in the House of Representatives have been able to win re-election.  
+
+As the graph demonstrates, the transaction amounts for incumbents versus non-incumbents are similar.  They appear to receive similar amounts of money, but the number of primary votes that incumbents receive tends to be higher than those that non-incumbents receive.  This may be because they already have the trust of their constituents and (presumably) have a proven track record, so voters find it safer to stick with the person they know than back a newcomer.  
+
+However, incumbency is not necessarily a benefit to the people as a whole.  It has been shown that incumbency advantage increases partisan bias within the electoral system, and within the past few decades, that bias has been toward the Republican party.  The power of incumbency advantage is important to be aware of, especially given the current political climate in the United States.  Knowing where the flaws are in a system helps voters realize internal biases and work toward fixing them. 
+
+
+
 **Sources**
 
 + [Cambridge Dictionary](https://dictionary.cambridge.org/us/dictionary/english/incumbency
