@@ -49,26 +49,6 @@ contributions_helections <- ca_house_elections %>%
 ```
 
 ```{r}
-## Selecting Columns from the Joined Table
-
-g_contributions_helections <- contributions_helections %>%
-<<<<<<< HEAD
-  select(incumbent.x, primary_votes.x) %>%
-  filter(!is.na(fec_id)) %>%
-  mutate(mean_votes = mean(primary_votes.x, na.rm = TRUE))
-=======
-  select(incumbent, primary_votes) %>%
-  filter(!is.na(transaction_amt), !is.na(state.y), !is.na(cand_id)) %>%
-  mutate(mean_votes = mean(primary_votes, na.rm = TRUE))
->>>>>>> df0ea758b12b224bb16cb9c23a809c2dbf143b62
-```
- 
-```{r}
-g_contributions_helections %>%
-  arrange(desc(district.x))
-```
-
-```{r}
 #Trying to separate incumbent by TRUE and FALSE
 ggplot(g_contributions_helections, aes(x = district.x, y = mean_votes)) + 
   geom_point(aes(color = incumbent.x)) + 
