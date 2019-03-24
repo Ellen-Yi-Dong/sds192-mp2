@@ -12,8 +12,6 @@ output:
 
 This project is so interesting and relevant to my life!  
 
-
-
 ```{r, message = FALSE}
 library(tidyverse)
 library(dplyr)
@@ -24,8 +22,6 @@ load("candidates.rda")
 load("committees.rda")
 load("contributions.rda")
 ```
-
-
 
 ```{r}
 ## Filtering and Grouping the Contributions and House Elections Tables
@@ -45,7 +41,14 @@ ca_contributions <- contributions %>%
 ```{r} 
 ## Joining the Contributions and House Elections Tables
 contributions_helections <- ca_house_elections %>% 
-  semi_join(ca_contributions, by = "fec_id")
+ full_join(ca_contributions, by = "fec_id")
+
+#Filtering out the NA in the joined table 
+contributions_helections %>%
+  filter(!is.na(state.y)) %>%
+  filter(!is.na(transaction_amt)) %>%
+  filter(!is.na(cand_id)) %>%
+  filter(!is.na(incumbent))
 ```
 
 ```{r}
