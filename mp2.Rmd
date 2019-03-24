@@ -72,3 +72,21 @@ ggplot(contributions_helections, aes(x = primary_votes, y = transaction_amt)) +
          subtitle = "With Respect to Incumbency"
          )
 ```
+
+```{r}
+ca_house_elections <- house_elections %>%
+  filter(state == "CA") %>%
+  select(state, incumbent, primary_votes, fec_id)
+
+ca_contributions <- contributions %>%
+  filter(state == "CA") %>%
+  filter(transaction_amt > 0) %>%
+  select(state, transaction_amt, cand_id) %>%
+  mutate(fec_id = cand_id) %>%
+  filter(!is.na(fec_id))
+```
+
+
+
+
+
