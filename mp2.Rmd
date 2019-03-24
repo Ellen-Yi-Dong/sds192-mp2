@@ -25,49 +25,11 @@ load("committees.rda")
 load("contributions.rda")
 ```
 
-## Some basic EDA
 
-
-- How many candidates running for what offices?
-
-```{r}
-candidates %>%
-  group_by(cand_election_yr, cand_office, cand_office_state) %>%
-  summarize(num_candidates = n()) %>%
-  print(n = Inf)
-```
-
-Note that this appears to be cumulative!
-
-- How many committees [by type](https://classic.fec.gov/finance/disclosure/metadata/CommitteeTypeCodes.shtml)?
-
-```{r}
-committees %>%
-  group_by(cmte_type) %>%
-  summarize(num_committees = n(), 
-            cand_ids = sum(cand_id > "")) %>%
-  arrange(desc(num_committees))
-```
-
-- What types of contributions are there and where do they go?
-
-```{r}
-contributions %>%
-  group_by(entity_type) %>%
-  summarize(num_contributions = n(), 
-            total_amount = sum(transaction_amt), 
-            other_ids = sum(other_id > ""),
-            cand_ids = sum(cand_id > "")) %>%
-  arrange(desc(num_contributions))
-```
-
-
-
-our code
 
 ```{r}
 ## Filtering and Grouping the Contributions and House Elections Tables
-ca_contributions <- contributions %>%
+ca_house_elections <- house_elections %>%
   filter(state == "CA" & transaction_amt > 0) %>%
   select(state, transaction_amt, cand_id) %>%
   mutate(cand_id = fec_id)
@@ -76,22 +38,29 @@ ca_contributions <- contributions %>%
   filter(state == "CA") %>%
   filter(transaction_amt > 0) %>%
   select(state, transaction_amt, cand_id) %>%
-  mutate(fec_id = cand_id)
+  mutate(fec_id = cand_id) %>%
+  filter(!is.na(fec_id))
 ```
 
 ```{r} 
 ## Joining the Contributions and House Elections Tables
 contributions_helections <- ca_house_elections %>% 
- full_join(ca_house_elections, ca_contributions, by = "fec_id")
+  semi_join(ca_contributions, by = "fec_id")
 ```
 
 ```{r}
 ## Selecting Columns from the Joined Table
 
 g_contributions_helections <- contributions_helections %>%
+<<<<<<< HEAD
   select(incumbent.x, primary_votes.x) %>%
   filter(!is.na(fec_id)) %>%
   mutate(mean_votes = mean(primary_votes.x, na.rm = TRUE))
+=======
+  select(incumbent, primary_votes) %>%
+  filter(!is.na(transaction_amt), !is.na(state.y), !is.na(cand_id)) %>%
+  mutate(mean_votes = mean(primary_votes, na.rm = TRUE))
+>>>>>>> df0ea758b12b224bb16cb9c23a809c2dbf143b62
 ```
  
 ```{r}
