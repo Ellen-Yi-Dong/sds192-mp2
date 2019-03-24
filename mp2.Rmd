@@ -75,22 +75,23 @@ ca_contributions <- contributions %>%
   filter(state == "CA") %>%
   filter(transaction_amt > 0) %>%
   select(state, transaction_amt, cand_id) %>%
-  mutate(fec_id = cand_id)
+  mutate(fec_id = cand_id) %>%
+  filter(!is.na(fec_id))
 ```
 
 ```{r} 
 ## Joining the Contributions and House Elections Tables
 contributions_helections <- ca_house_elections %>% 
-  full_join(ca_house_elections, ca_contributions, by = "fec_id")
+  semi_join(ca_contributions, by = "fec_id")
 ```
 
 ```{r}
 ## Selecting Columns from the Joined Table
 
 g_contributions_helections <- contributions_helections %>%
-  select(candidate_name.x, incumbent.x, primary_votes.x) %>%
-  filter(!is.na(candidate_name.x)) %>%
-  mutate(mean_votes = mean(primary_votes.x, na.rm = TRUE))
+  select(incumbent, primary_votes) %>%
+  filter(!is.na(transaction_amt), !is.na(state.y), !is.na(cand_id)) %>%
+  mutate(mean_votes = mean(primary_votes, na.rm = TRUE))
 ```
  
 ```{r}
