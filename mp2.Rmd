@@ -58,13 +58,14 @@ contributions_helections %>%
 ```
 
 ```{r, message = FALSE, warning = FALSE}
+
 #Trying to separate incumbent by TRUE and FALSE
 
 ggplot(contributions_helections, aes(x = primary_votes, y = transaction_amt)) + 
   geom_point(aes(color = incumbent)) + 
   scale_fill_manual(values=c("FALSE" = "black", "TRUE" = "red")) + 
-  xlim(0, 100000) +
-  ylim(0,500000 ) + 
+  xlim(0, 90000) +
+  ylim(0,400000 ) + 
   labs(color = "Incumbent Status", 
          x = "Number of Primary Votes", 
          y = "Transaction Amount", 
