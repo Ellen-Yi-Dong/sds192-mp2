@@ -42,6 +42,10 @@ ca_contributions <- contributions %>%
 contributions_helections <- ca_house_elections %>% 
  full_join(ca_contributions, by = "fec_id")
 
+```
+
+```{r}
+
 #Filtering out the NA in the joined table 
 contributions_helections %>%
   filter(!is.na(state.y)) %>%
@@ -52,13 +56,15 @@ contributions_helections %>%
 
 ```{r}
 #Trying to separate incumbent by TRUE and FALSE
-ggplot(contributions_helections, aes(x = transaction_amt, y = primary_votes)) + 
+ggplot(contributions_helections, aes(x = primary_votes, y = transaction_amt)) + 
   geom_point(aes(color = incumbent)) + 
   scale_fill_manual(values=c("FALSE" = "black", "TRUE" = "red")) + 
+  xlim(0, 100000) +
+  ylim(0,500000 ) + 
   labs(color = "Incumbent Status", 
-         x = "Transaction Amount", 
-         y = "Number of Primary Votes", 
-         title = "The Number of Primary Votes for Each Politician in a Certain District in CA", 
+         x = "Number of Primary Votes", 
+         y = "Transaction Amount", 
+         title = "How Primary Votes affect Transaction Amount in Candidates in CA", 
          subtitle = "With Respect to Incumbency"
          )
 ```
