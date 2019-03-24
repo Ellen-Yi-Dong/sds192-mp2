@@ -57,7 +57,7 @@ contributions_helections %>%
   filter(!is.na(incumbent))
 ```
 
-```{r}
+```{r warning = FALSE}
 #Trying to separate incumbent by TRUE and FALSE
 
 ggplot(contributions_helections, aes(x = primary_votes, y = transaction_amt)) + 
@@ -72,4 +72,3 @@ ggplot(contributions_helections, aes(x = primary_votes, y = transaction_amt)) +
          subtitle = "With Respect to Incumbency"
          )
 ```
-^[GitHub Repository: https://github.com/Ellen-Yi-Dong/sds192-mp2]
