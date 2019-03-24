@@ -46,7 +46,7 @@ contributions_helections <- ca_house_elections %>%
 
 ```
 
-```{r, message = FALSE}
+```{r, message = FALSE, results = 'hide'}
 
 #Filtering out the NA in the joined table 
 
