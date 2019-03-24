@@ -25,45 +25,7 @@ load("committees.rda")
 load("contributions.rda")
 ```
 
-## Some basic EDA
-
-
-- How many candidates running for what offices?
-
-```{r}
-candidates %>%
-  group_by(cand_election_yr, cand_office, cand_office_state) %>%
-  summarize(num_candidates = n()) %>%
-  print(n = Inf)
-```
-
-Note that this appears to be cumulative!
-
-- How many committees [by type](https://classic.fec.gov/finance/disclosure/metadata/CommitteeTypeCodes.shtml)?
-
-```{r}
-committees %>%
-  group_by(cmte_type) %>%
-  summarize(num_committees = n(), 
-            cand_ids = sum(cand_id > "")) %>%
-  arrange(desc(num_committees))
-```
-
-- What types of contributions are there and where do they go?
-
-```{r}
-contributions %>%
-  group_by(entity_type) %>%
-  summarize(num_contributions = n(), 
-            total_amount = sum(transaction_amt), 
-            other_ids = sum(other_id > ""),
-            cand_ids = sum(cand_id > "")) %>%
-  arrange(desc(num_contributions))
-```
-
-
-
-our code
+Analysis
 
 ```{r}
 ## Filtering and Grouping the Contributions and House Elections Tables
@@ -77,38 +39,33 @@ ca_contributions <- contributions %>%
   select(state, transaction_amt, cand_id) %>%
   mutate(fec_id = cand_id) %>%
   filter(!is.na(fec_id))
+
+
 ```
 
 ```{r} 
 ## Joining the Contributions and House Elections Tables
 contributions_helections <- ca_house_elections %>% 
-  semi_join(ca_contributions, by = "fec_id")
+  full_join(ca_contributions, by = "fec_id")
+
+contributions_helections %>%
+  filter(!is.na(state.y)) %>%
+  filter(!is.na(transaction_amt)) %>%
+  filter(!is.na(cand_id)) %>%
+  filter(!is.na(incumbent))
+
 ```
 
-```{r}
-## Selecting Columns from the Joined Table
 
-g_contributions_helections <- contributions_helections %>%
-  select(incumbent, primary_votes) %>%
-  filter(!is.na(transaction_amt), !is.na(state.y), !is.na(cand_id)) %>%
-  mutate(mean_votes = mean(primary_votes, na.rm = TRUE))
-```
- 
-```{r}
-g_contributions_helections %>%
-  arrange(desc(district.x))
-```
-
-```{r}
+```{r warning = FALSE}
 #Trying to separate incumbent by TRUE and FALSE
-ggplot(g_contributions_helections, aes(x = district.x, y = mean_votes)) + 
-  geom_point(aes(color = incumbent.x)) + 
+ggplot(contributions_helections, aes(x = transaction_amt, y = primary_votes)) + 
+  geom_point(aes(color = incumbent)) + 
   scale_fill_manual(values=c("FALSE" = "black", "TRUE" = "red")) + 
   labs(color = "Incumbent Status", 
-         x = "District", 
-         y = "Mean Number of Primary Votes", 
-         title = "The Mean Number of Primary Votes for Each Politician in a Certain District in CA", 
+         x = "Transaction Amount", 
+         y = "Number of Primary Votes", 
+         title = "The Number of Primary Votes for Each Politician in a Certain District in CA", 
          subtitle = "With Respect to Incumbency"
          )
 ```
-^[GitHub Repository: https://github.com/Ellen-Yi-Dong/sds192-mp2]
