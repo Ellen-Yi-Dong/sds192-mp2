@@ -26,9 +26,8 @@ load("contributions.rda")
 ```{r}
 ## Filtering and Grouping the Contributions and House Elections Tables
 ca_house_elections <- house_elections %>%
-  filter(state == "CA" & transaction_amt > 0) %>%
-  select(state, transaction_amt, cand_id) %>%
-  mutate(cand_id = fec_id)
+  filter(state == "CA") %>%
+  select(state, incumbent, primary_votes, fec_id)
 
 ca_contributions <- contributions %>%
   filter(state == "CA") %>%
@@ -53,13 +52,13 @@ contributions_helections %>%
 
 ```{r}
 #Trying to separate incumbent by TRUE and FALSE
-ggplot(g_contributions_helections, aes(x = district.x, y = mean_votes)) + 
-  geom_point(aes(color = incumbent.x)) + 
+ggplot(contributions_helections, aes(x = transaction_amt, y = primary_votes)) + 
+  geom_point(aes(color = incumbent)) + 
   scale_fill_manual(values=c("FALSE" = "black", "TRUE" = "red")) + 
   labs(color = "Incumbent Status", 
-         x = "District", 
-         y = "Mean Number of Primary Votes", 
-         title = "The Mean Number of Primary Votes for Each Politician in a Certain District in CA", 
+         x = "Transaction Amount", 
+         y = "Number of Primary Votes", 
+         title = "The Number of Primary Votes for Each Politician in a Certain District in CA", 
          subtitle = "With Respect to Incumbency"
          )
 ```
