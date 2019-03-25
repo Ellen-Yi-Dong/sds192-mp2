@@ -24,7 +24,8 @@ load("contributions.rda")
 ```
 
 ```{r, message = FALSE}
-## Filtering and Grouping the Contributions and House Elections Tables
+
+# Filtering and Grouping the Contributions and House Elections Tables
 
 ca_house_elections <- house_elections %>%
   filter(state == "CA") %>%
@@ -39,7 +40,8 @@ ca_contributions <- contributions %>%
 ```
 
 ```{r, message = FALSE} 
-## Joining the Contributions and House Elections Tables
+
+# Joining the Contributions and House Elections Tables
 
 contributions_helections <- ca_house_elections %>% 
  full_join(ca_contributions, by = "fec_id")
@@ -48,7 +50,7 @@ contributions_helections <- ca_house_elections %>%
 
 ```{r, message = FALSE, results = 'hide'}
 
-#Filtering out the NA in the joined table 
+# Filtering out the NA in the joined table 
 
 contributions_helections %>%
   filter(!is.na(state.y)) %>%
@@ -59,7 +61,7 @@ contributions_helections %>%
 
 ```{r, message = FALSE, warning = FALSE}
 
-#Trying to separate incumbent by TRUE and FALSE
+# Trying to separate incumbent by TRUE and FALSE
 
 ggplot(contributions_helections, aes(x = primary_votes, y = transaction_amt)) + 
   geom_point(aes(color = incumbent)) + 
@@ -74,9 +76,14 @@ ggplot(contributions_helections, aes(x = primary_votes, y = transaction_amt)) +
          )
 ```
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 5df8cf990a089e873876408e720ac0f1fdde0f3d
 ```{r}
+
+# Writing a Function to Filter House Elections by Different States
 
 state_he <- function(x){
   house_elections  %>% 
@@ -89,6 +96,9 @@ state_he(x="MA")
 ```
 
 ```{r}
+
+# Writing a Function to Filter Contributions by Different States
+
 state_contributions <- function(x) {
   contributions %>%
     filter(state == x) %>%
@@ -101,6 +111,7 @@ state_contributions(x = "MA")
 ```
 
 
+<<<<<<< HEAD
 
 
 
@@ -108,6 +119,8 @@ state_contributions(x = "MA")
 
 =======
 =======
+=======
+>>>>>>> 5df8cf990a089e873876408e720ac0f1fdde0f3d
 ## Analysis
 
 From this data, we can learn about the relationship between the number of primary votes a candidate receives and the amount of money donated to help them (transaction amount) in California, as well as whether or not they were an incumbent. The graph above demonstrates that in California, incumbents (labeled in green) generally have a higher number of primary votes than non-incumbents (labeled in red).
@@ -123,8 +136,6 @@ As the graph demonstrates, the transaction amounts for incumbents versus non-inc
 However, incumbency is not necessarily a benefit to the people as a whole.  It has been shown that incumbency advantage increases partisan bias within the electoral system, and within the past few decades, that bias has been toward the Republican party.  The power of incumbency advantage is important to be aware of, especially given the current political climate in the United States.  Knowing where the flaws are in a system helps voters realize internal biases and work toward fixing them. 
 
 
-
->>>>>>> 02daac666326b60511dac5261390a696e9356800
 **Sources**
 
 + [Cambridge Dictionary](https://dictionary.cambridge.org/us/dictionary/english/incumbency
